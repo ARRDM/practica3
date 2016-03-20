@@ -1,0 +1,42 @@
+<% if conectado? %>
+<p id="notice"><%= notice %></p>
+
+<%= link_to 'Ver posts', verpost_path %>
+
+<p>
+  <strong>Id m user:</strong>
+  <%= @m_user.id_m_user %>
+</p>
+
+<p>
+  <strong>M user name:</strong>
+  <%= @m_user.m_user_name %>
+</p>
+
+<p>
+  <strong>M user surname:</strong>
+  <%= @m_user.m_user_surname %>
+</p>
+
+<p>
+  <strong>Blood type:</strong>
+  <%= @m_user.blood_type %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @m_user.email %>
+</p>
+
+<p>
+  <strong>Password digest:</strong>
+  <%= @m_user.password_digest %>
+</p>
+
+<%= link_to 'Edit', edit_m_user_path(@m_user) %> |
+<%= link_to 'Back', m_users_path %>
+<%= link_to "Log out", logout_path, method: "delete" %>
+
+<% else %>
+<li><%= link_to "Log in", login_path %></li>
+<% end %> 

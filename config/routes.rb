@@ -1,11 +1,31 @@
+# coding: utf-8
 Rails.application.routes.draw do
 
-	resources :posts
+  #Ruta principal
+  root 'main#index'
+
+  get 'sessions/new'
+
+  #Rutas directas o estáticas
+  get 'sessions/new'
+  get 'login' => 'sessions#new'
+  get 'registro' => 'm_users#new'
+
+  get 'verpost' => 'posts#index'
+  resources :posts
+
+  resources :m_users
+
+  post 'login' => 'sessions#create'
+  delete 'logout' => 'sessions#destroy'
+
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-   root 'welcome#index'
+  # root 'welcome#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
