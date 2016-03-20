@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  blood_type_post: MyString
+  location_post: MyString
+  phone_post: MyString
+  description: MyText
+
+two:
+  title: MyString
+  blood_type_post: MyString
+  location_post: MyString
+  phone_post: MyString
+  description: MyText

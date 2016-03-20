@@ -1,0 +1,29 @@
+<h1>Lista de publicaciones</h1>
+
+<%= link_to 'Publicar', new_post_path %>
+<table>
+  <tr>
+    <th>Título</th>
+    <th>Tipo de sangre</th>
+    <th>Ubicación</th>
+    <th>Telefono</th>
+    <th>Descripción</th>
+    <th> colspan="2"></th>
+  </tr>
+  
+  <% @post.each do |post| %>
+  <tr>
+    <td><%= post.title %></td> 
+    <td><%= post.blood_type_post %></td>
+    <td><%= post.location_post %></td>
+    <td><%= post.phone_post %></td>
+    <td><%= post.description %></td>
+    <td><%= link_to 'Mostrar', post_path(post) %></td>
+    <td><%= link_to 'Editar', edit_post_path(post) %></td>
+  </tr>
+  <% end %>
+
+</table>
+
+
+<%= link_to 'Regresar', posts_path %>
