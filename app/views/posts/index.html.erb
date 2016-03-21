@@ -38,8 +38,6 @@
         <img src="/assets/Medical-center.png" class="img-responsive img" alt="">
       </a>
     </div>
-    <li><%= link_to "Cerrar Sesión", logout_path, method: "delete" %></li>
-    <li><%= link_to "Perfil", m_user_actual %></li>
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
@@ -67,7 +65,8 @@
         <h1>SOLICITUDES DE DONACIONES</h1>
       </div>
     </div>
-    <h3><%= link_to 'Publicar un nuevo post', new_post_path %></h3>
+    <%= link_to 'Publicar un nuevo post', new_post_path , class: "btn btn-success btn-lg" %>
+    <br>
     <br>
     <div class="row">
       <% @post.each do |post| %>
@@ -77,8 +76,8 @@
           <div class="caption">
             <h3 class="text-center"><%= post.title %></h3>
             <h4>Solicita sangre:<%= post.blood_type_post %></h4>
-	    <h6>Ubicación: <%= post.location_post %></h6>
-	    <h4> Puede comunicarse al teléfono: <%= post.phone_post %></h4>
+	    <h5>Ubicación: <%= post.location_post %></h5>
+	    <h4>Teléfono: <%= post.phone_post %></h4>
             <p><%= post.description %></p>
 	    <%= link_to 'Mostrar publicación', post_path(post) %>
 	     <% if m_user_actual == post.m_user %>
