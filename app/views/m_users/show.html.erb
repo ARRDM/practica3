@@ -1,42 +1,164 @@
 <% if conectado? %>
 <p id="notice"><%= notice %></p>
 
-<%= link_to 'Ver posts', verpost_path %>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-<p>
-  <strong>Id m user:</strong>
-  <%= @m_user.id_m_user %>
-</p>
+<!-- AQUÍ VA EL TÍTULO DE LA PÁGINA -->
+    <title>ARRDMedical Center</title>
 
-<p>
-  <strong>M user name:</strong>
-  <%= @m_user.m_user_name %>
-</p>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
-<p>
-  <strong>M user surname:</strong>
-  <%= @m_user.m_user_surname %>
-</p>
 
-<p>
-  <strong>Blood type:</strong>
-  <%= @m_user.blood_type %>
-</p>
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
 
-<p>
-  <strong>Email:</strong>
-  <%= @m_user.email %>
-</p>
+    <script src="docs/assets/js/ie-emulation-modes-warning.js"></script>
 
-<p>
-  <strong>Password digest:</strong>
-  <%= @m_user.password_digest %>
-</p>
+  </head>
 
-<%= link_to 'Edit', edit_m_user_path(@m_user) %> |
-<%= link_to 'Back', m_users_path %>
-<%= link_to "Log out", logout_path, method: "delete" %>
+  <!-- EMPIEZA EL DISEÑO 
+    ========================================= -->
+<body>
+  <div class="container">
+<!-- COPIAR DESDE AQUÍ -->    
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">
+        <img src="/assets/Medical-center.png" class="img-responsive img" alt="">
+      </a>
+    </div>
+    <li><%= link_to "Cerrar Sesión", logout_path, method: "delete" %></li>
+    <li><%= link_to "Perfil", m_user_actual %></li>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown" data-no-turbolink>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><%= m_user_actual.m_user_name %><span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu" data-no-turbolink>
+            <li><%= link_to "Perfil", m_user_actual %></li>
+            <li><a href="#">Configuración</a></li>
+            <li role="separator" class="divider"></li>
+            <li><%= link_to "Cerrar Sesión", logout_path, method: "delete" %></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+  </div>
+  <br>
+  <!-- HASTA ACÁ Termina NAVBAR -->
 
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <div class="well">
+      <h1>Borrar perfil</h1>
+      <hr>
+      <div class="row">
+	<div class="col-md-10 col-md-offset-1">
+	  <h3><%= link_to 'Crear y ver solitudes', verpost_path %></h3>
+	  <br>
+	</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1">
+        <div class="well">
+          <h1 class="text-center">Información del perfil</h1>
+          <hr>
+          <br>
+          <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-6 text-right">
+              <h4>Nombre:</h4>
+              <h4>Apellido:</h4>
+              <h4>Correo:</h4>
+              <h4>Tipo de sangre:</h4>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-6 text-left">
+              <h4><%= @m_user.m_user_name %></h4>
+              <h4><%= @m_user.m_user_surname %></h4>
+              <h4><%= @m_user.blood_type_user %></h4>
+              <h4><%= @m_user.email %></h4>
+            </div>
+          </div>
+          <br>
+	  <% if @m_user == m_user_actual %>
+          <div class="row">
+            <div class="col-md-6 col-md-offset-3 text-center">
+	      <%= link_to 'Edita tus datos', edit_m_user_path(@m_user), class: "btn btn-primary btn-lg" %>
+            </div>
+          </div>
+	  <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  </section>
+
+  <% if @m_user.posts.any? && (@m_user == m_user_actual) %>
+  <section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <h1>SOLICITUDES DE DONACIONES HECHAS</h1>
+      </div>
+    </div>
+    <%= link_to 'Publicar un nuevo post', new_post_path %>
+    <br>
+    <div class="row">
+    <% @posts.each do |post| %>
+      <div class="col-md-3">
+        <div class="thumbnail">
+          <div class="caption">
+            <h3 class="text-center"><%= post.title %></h3>
+            <h4>Solicita sangre:<%= post.blood_type_post %></h4>
+	    <h6>Ubicación: <%= post.location_post %></h6>
+	    <h4> Puede comunicarse al teléfono: <%= post.phone_post %></h4>
+            <p><%= post.description %></p>
+	    <%= link_to 'Mostrar publicación', post_path(post) %>
+	    	    <%= link_to 'Mostrar publicación', post_path(post) %>
+	     <% if m_user_actual == post.m_user %>
+	    <td><%= link_to 'Editar', edit_post_path(post) %></td>
+	    <td><%= link_to 'Eliminar', post_path(post), method: :delete, data: { confirm: '¿Está seguro?' } %></td>
+	    <% end %>
+	    <button class="btn btn-danger btn-block">Responder solicitud</button>
+          </div>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </section>
+  <% end %>
+  
+<!-- JAVASCRIPT -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="docs/assets/js/ie10-viewport-bug-workaround.js"></script>
+      
+  </body>
+</html>
 <% else %>
 <li><%= link_to "Log in", login_path %></li>
 <% end %> 

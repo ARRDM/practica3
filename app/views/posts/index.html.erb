@@ -1,29 +1,103 @@
-<h1>Lista de publicaciones</h1>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-<%= link_to 'Publicar', new_post_path %>
-<table>
-  <tr>
-    <th>Título</th>
-    <th>Tipo de sangre</th>
-    <th>Ubicación</th>
-    <th>Telefono</th>
-    <th>Descripción</th>
-  </tr>
-  
-  <% @post.each do |post| %>
-  <tr>
-    <td><%= post.title %></td> 
-    <td><%= post.blood_type_post %></td>
-    <td><%= post.location_post %></td>
-    <td><%= post.phone_post %></td>
-    <td><%= post.description %></td>
-    <td><%= link_to 'Mostrar', post_path(post) %></td>
-    <td><%= link_to 'Editar', edit_post_path(post) %></td>
-    <td><%= link_to 'Eliminar', post_path(post), method: :delete, data: { confirm: '¿Está seguro?' } %></td>
-  </tr>
-  <% end %>
+<!-- AQUÍ VA EL TÍTULO DE LA PÁGINA -->
+    <title>ARRDMedical Center</title>
 
-</table>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
 
-<%= link_to 'Regresar', posts_path %>
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+
+    <script src="docs/assets/js/ie-emulation-modes-warning.js"></script>
+
+  </head>
+
+  <!-- EMPIEZA EL DISEÑO 
+    ========================================= -->
+  <body>
+  <div class="container">
+    <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">
+        <img src="/assets/Medical-center.png" class="img-responsive img" alt="">
+      </a>
+    </div>
+    <li><%= link_to "Cerrar Sesión", logout_path, method: "delete" %></li>
+    <li><%= link_to "Perfil", m_user_actual %></li>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown" data-no-turbolink>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><%= m_user_actual.m_user_name %><span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu" data-no-turbolink>
+            <li><%= link_to "Perfil", m_user_actual %></li>
+            <li><a href="#">Configuración</a></li>
+            <li role="separator" class="divider"></li>
+            <li><%= link_to "Cerrar Sesión", logout_path, method: "delete" %></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+  </div>
+  <br>
+<!-- Termina NAVBAR -->
+
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <h1>SOLICITUDES DE DONACIONES</h1>
+      </div>
+    </div>
+    <h3><%= link_to 'Publicar un nuevo post', new_post_path %></h3>
+    <br>
+    <div class="row">
+    <% @post.each do |post| %>
+      <div class="col-md-3">
+        <div class="thumbnail">
+          <div class="caption">
+            <h3 class="text-center"><%= post.title %></h3>
+            <h4>Solicita sangre:<%= post.blood_type_post %></h4>
+	    <h6>Ubicación: <%= post.location_post %></h6>
+	    <h4> Puede comunicarse al teléfono: <%= post.phone_post %></h4>
+            <p><%= post.description %></p>
+	    <%= link_to 'Mostrar publicación', post_path(post) %>
+	     <% if m_user_actual == post.m_user %>
+	    <td><%= link_to 'Editar', edit_post_path(post) %></td>
+	    <td><%= link_to 'Eliminar', post_path(post), method: :delete, data: { confirm: '¿Está seguro?' } %></td>
+	    <% end %>
+	    <button class="btn btn-danger btn-block">Responder solicitud</button>
+          </div>
+        </div>
+      </div>
+      <% end %>
+    </div>
+</section>
+
+
+<!-- JAVASCRIPT -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="docs/assets/js/ie10-viewport-bug-workaround.js"></script>
+      
+  </body>
+</html>

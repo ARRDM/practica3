@@ -44,6 +44,16 @@ class PostsController < ApplicationController
     @post = Post.all
   end
 
+  def responder_solicitud
+    @post = Post.find(params[:id])
+    @m_user = m_user_actual
+    if @post.m_user == @m_user
+      redirect_to posts_path
+    else
+      @post.
+    end
+  end
+
   private
   def post_params
     params.require(:post).permit(:title,:blood_type_post,:location_post,:phone_post,:description)

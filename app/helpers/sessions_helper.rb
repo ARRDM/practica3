@@ -16,10 +16,10 @@ module SessionsHelper
 
   def m_user_actual
     if(m_user_id = session[:id])
-      @m_user_actual ||= MUser.find_by(id_m_user: m_user_id)
-      m_user = MUser.find_by(id_m_user: m_user_id)
+      @m_user_actual ||= MUser.find_by(id: m_user_id)
+      m_user = MUser.find_by(id: m_user_id)
     elsif (m_user_id = cookies.signed[:id])
-      m_user = MUser.find_by(id: m_user_if)
+      m_user = MUser.find_by(id: m_user_id)
       if m_user && m_user.authenticated?(:remember, cookies[:remember_token])
         log_in m_user
         @m_user_actual = m_user

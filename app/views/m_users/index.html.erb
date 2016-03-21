@@ -18,10 +18,10 @@
   <tbody>
     <% @m_users.each do |m_user| %>
       <tr>
-        <td><%= m_user.id_m_user %></td>
+        <td><%= m_user.id %></td>
         <td><%= m_user.m_user_name %></td>
         <td><%= m_user.m_user_surname %></td>
-        <td><%= m_user.blood_type %></td>
+        <td><%= m_user.blood_type_user %></td>
         <td><%= m_user.email %></td>
         <td><%= m_user.password_digest %></td>
         <td><%= link_to 'Show', m_user %></td>

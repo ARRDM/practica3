@@ -1,12 +1,12 @@
 class MUser < ActiveRecord::Base
-
-  self.primary_key = 'm_user_id'
+  
   before_save :downcase_email
   before_save { self.email = email.downcase }
+  has_many :posts, dependent: :destroy
   validates(:m_user_name, presence: true)
   validates(:m_user_surname, presence: true)
   validates(:blood_type_user, presence: true, length: { maximum: 4 })
-  validates(:password, presence: true, length: { minimum: 6 })
+  validates(:password, presence: true, length: { minimum: 6 })  
   has_secure_password
 
   def MUser.new_token

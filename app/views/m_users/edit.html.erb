@@ -1,6 +1,133 @@
-<h1>Editing M User</h1>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-<%= render 'form' %>
+<!-- AQUÍ VA EL TÍTULO DE LA PÁGINA -->
+    <title>ARRDMedical Center</title>
 
-<%= link_to 'Show', @m_user %> |
-<%= link_to 'Back', m_users_path %>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+
+    <script src="docs/assets/js/ie-emulation-modes-warning.js"></script>
+
+  </head>
+
+  <!-- EMPIEZA EL DISEÑO 
+    ========================================= -->
+<body>
+  <div class="container">
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">
+        <img src="/assets/Medical-center.png" class="img-responsive img" alt="">
+      </a>
+    </div>
+    <li><%= link_to "Cerrar Sesión", logout_path, method: "delete" %></li>
+    <li><%= link_to "Perfil", m_user_actual %></li>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown" data-no-turbolink>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><%= m_user_actual.m_user_name %><span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu" data-no-turbolink>
+            <li><%= link_to "Perfil", m_user_actual %></li>
+            <li><a href="#">Configuración</a></li>
+            <li role="separator" class="divider"></li>
+            <li><%= link_to "Cerrar Sesión", logout_path, method: "delete" %></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+  </div>
+<br>  
+<br>
+<br>
+
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <div class="well">
+      <h1>Configuración</h1>
+      <hr>
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <h3>Actualiza tus datos</h3>
+    <br>
+    <%= form_for(@m_user) do |f| %>
+    <h5>Cambiar nombre</h5>
+      <%= f.text_field :m_user_name, class: 'form-control' %>
+      <br>
+      <h5>Cambiar apellido</h5>
+      <%= f.text_field :m_user_surname, class: 'form-control', placeholder: 'Apellido' %>   
+      <br>
+      <h5>Cambiar correo</h5>
+      <%= f.email_field :email, class: 'form-control', placeholder: 'Correo' %>
+      <br>
+      <h5>Cambiar contraseña</h5>
+      <%= f.password_field :password, class: 'form-control', placeholder: 'Contraseña' %>
+      <br>
+      <!--<%= f.password_field :password_confirmation, class: 'form-control', placeholder: 'Repetir contraseña' %>
+     <br> -->
+      
+      <div class="row">
+        <div class="col-md-5">
+          <h5>Cambiar tipo de Sangre</h5>
+        </div>
+        <div class="col-md-7">
+	  <%= f.select :blood_type_user, options_for_select([["Tipo de Sangre", ""], "A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"]), :class => 'form-control' %>          
+          </div>
+        </div>
+
+        <br>
+	<%= f.submit "Guardar", class: "btn btn-primary btn-lg btn-block" %>
+	<% end %>
+</div>
+  </div>
+</div>
+</div>
+</div>
+
+
+
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <div class="well">
+      <h1>Borrar perfil</h1>
+      <hr>
+      <div class="row">
+	<div class="col-md-10 col-md-offset-1">
+	  <p><%= link_to "Eliminar perfil", m_user_actual, method: :delete, data: { confirm: "¿Estás seguro de eliminar su perfil?" }  %></p>
+	  <br>
+	</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- JAVASCRIPT -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="docs/assets/js/ie10-viewport-bug-workaround.js"></script>
+      
+  </body>
+</html>
+
