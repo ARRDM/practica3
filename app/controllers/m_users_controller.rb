@@ -25,7 +25,7 @@ class MUsersController < ApplicationController
 
     respond_to do |format|
       if @m_user.save
-        format.html { redirect_to login_url, notice: 'M user was successfully created.' }
+        format.html { redirect_to login_url, notice: 'Bienvenido.' }
         format.json { render :show, status: :created, location: @m_user }
       else
         format.html { render :new }

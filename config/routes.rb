@@ -15,7 +15,9 @@ Rails.application.routes.draw do
   resources :posts
 
   resources :m_users
-
+  get 'posts/:posts_id/donador' => 'posts#responder_solicitud', :as => :donador
+  get 'posts/:posts_id/rechazar' => 'posts#rechazar_solicitud', :as => :rechazar
+  get 'posts/:posts_id/aceptar' => 'posts#aceptar_solicitud', :as => :aceptar
   post 'login' => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
 

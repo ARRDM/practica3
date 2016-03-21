@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160321032205) do
+ActiveRecord::Schema.define(version: 20160321075801) do
 
   create_table "m_users", force: :cascade do |t|
     t.string   "m_user_name"
@@ -33,6 +33,8 @@ ActiveRecord::Schema.define(version: 20160321032205) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.integer  "m_user_id"
+    t.integer  "donador"
+    t.boolean  "finished"
   end
 
   add_index "posts", ["m_user_id"], name: "index_posts_on_m_user_id"

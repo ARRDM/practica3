@@ -70,7 +70,8 @@
     <h3><%= link_to 'Publicar un nuevo post', new_post_path %></h3>
     <br>
     <div class="row">
-    <% @post.each do |post| %>
+      <% @post.each do |post| %>
+      <% if !post.finished && !post.donador %>
       <div class="col-md-3">
         <div class="thumbnail">
           <div class="caption">
@@ -84,10 +85,11 @@
 	    <td><%= link_to 'Editar', edit_post_path(post) %></td>
 	    <td><%= link_to 'Eliminar', post_path(post), method: :delete, data: { confirm: '¿Está seguro?' } %></td>
 	    <% end %>
-	    <button class="btn btn-danger btn-block">Responder solicitud</button>
+	    <%= link_to 'Responder solicitud', donador_path(post, :id => post.id), class: "btn btn-danger btn-block" %>
           </div>
         </div>
       </div>
+      <% end %>
       <% end %>
     </div>
 </section>

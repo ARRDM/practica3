@@ -67,7 +67,7 @@
 <div class="row">
   <div class="col-md-10 col-md-offset-1">
     <div class="well">
-      <h1>Borrar perfil</h1>
+      <h1>Publicaciones y solicitudes:</h1>
       <hr>
       <div class="row">
 	<div class="col-md-10 col-md-offset-1">
@@ -127,7 +127,8 @@
     <%= link_to 'Publicar un nuevo post', new_post_path %>
     <br>
     <div class="row">
-    <% @posts.each do |post| %>
+      <% @posts.each do |post| %>
+      <% if !post.finished %>
       <div class="col-md-3">
         <div class="thumbnail">
           <div class="caption">
@@ -137,7 +138,6 @@
 	    <h4> Puede comunicarse al teléfono: <%= post.phone_post %></h4>
             <p><%= post.description %></p>
 	    <%= link_to 'Mostrar publicación', post_path(post) %>
-	    	    <%= link_to 'Mostrar publicación', post_path(post) %>
 	     <% if m_user_actual == post.m_user %>
 	    <td><%= link_to 'Editar', edit_post_path(post) %></td>
 	    <td><%= link_to 'Eliminar', post_path(post), method: :delete, data: { confirm: '¿Está seguro?' } %></td>
@@ -146,6 +146,7 @@
           </div>
         </div>
       </div>
+      <% end %>
       <% end %>
     </div>
   </section>

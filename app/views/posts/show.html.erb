@@ -24,6 +24,46 @@
   <strong>Descripción:</strong>
   <%= @post.description %>
 </p>
+<% if m_user_actual == @post.m_user %>
 
+<p><%= link_to 'Mostrar publicación', post_path(@post) %></p>
+<p><%= link_to 'Eliminar', post_path(@post), method: :delete, data: { confirm: '¿Está seguro?' } %></p>
+<% end %>
+
+<% if @donador != nil && @post.m_user == m_user_actual %>
+<h2> Datos de la persona interesada en tu post </h2>
+  <section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1">
+        <div class="well">
+          <h1 class="text-center">Información del perfil</h1>
+          <hr>
+          <br>
+          <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-6 text-right">
+              <h4>Nombre:</h4>
+              <h4>Apellido:</h4>
+              <h4>Tipo de sangre:</h4>
+	      <h4>Correo:</h4>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-6 text-left">
+              <h4><%= @donador.m_user_name %></h4>
+              <h4><%= @donador.m_user_surname %></h4>
+              <h4><%= @donador.blood_type_user %></h4>
+              <h4><%= @donador.email %></h4>
+            </div>
+          </div>
+	  <h4><%= link_to "Rechazar donador", rechazar_path(@post) %></h4>
+	  <h4><%= link_to "Aceptar donador y terminar publicación", aceptar_path(@post) %></h4>
+          <br>
+        </div>
+      </div>
+    </div>
+  </div>
+  </section>
+<% end %>
 <%= link_to 'Regresar', posts_path %>
+<% if @m_user == m_user_actual %>
 <%= link_to 'Editar publicación', edit_post_path(@post) %>
+<% end %>

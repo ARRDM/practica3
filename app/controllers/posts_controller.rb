@@ -7,11 +7,18 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+    if @post.donador
+      id = @post.donador
+      @donador = MUser.find_by(id: id) 
+    else
+      @donador = nil
+    end
   end
 
   def create
     @post =  Post.new(post_params)
     @post.m_user = m_user_actual
+    @post.finished = false
    if  @post.save
     redirect_to @post
    else
@@ -42,6 +49,42 @@ class PostsController < ApplicationController
 
   def index
     @post = Post.all
+  end
+
+  def responder_solicitud
+    @post = Post.find(params[:posts_id])
+    @m_user = m_user_actual
+    if @post.m_user == @m_user
+      redirect_to posts_path
+    else
+      @post.donador = @m_user.id
+      @post.update_attribute :donador, @post.donador
+      redirect_to @post
+    end
+  end
+
+  def aceptar_solicitud
+    @post = Post.find(params[:posts_id])
+    if @post.donador
+      @post.update_attribute :finished, true
+      
+    else
+      @donador = nil
+    end
+    id = @post.donador
+    @donador = MUser.find_by(id: id) 
+    redirect_to @donador
+  end
+
+  def rechazar_solicitud
+    @post = Post.find(params[:posts_id])
+    if @post.donador
+      @post.update_attribute :donador, nil
+      @donador = nil
+    else
+      @donador = nil
+    end
+    redirect_to @post
   end
 
   private
